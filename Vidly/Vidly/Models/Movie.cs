@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Vidly.Models
 {
+
     //Task 1 - Create CLR Objects in our Model
     public class Movie
     {

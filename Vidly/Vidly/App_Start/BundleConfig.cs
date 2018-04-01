@@ -3,6 +3,8 @@ using System.Web.Optimization;
 
 namespace Vidly
 {
+    //Task 1 - Switch our default Theme for some Custom bootstrap.
+    //Bundles are Client Side Assets, we can combine & compress libraries, so we make less http requests.
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
@@ -24,7 +26,7 @@ namespace Vidly
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-lumen.css",
                       "~/Content/site.css"));
         }
     }
