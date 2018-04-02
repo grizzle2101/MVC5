@@ -9,13 +9,17 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // Task 2 - Create Controller & Pass Data from Model to View
+
         public ActionResult Random()
         {
             var movie = new Movie() { Name = "Shrek!", id = 1};
-
-            //Pass the movie Object to View.
             return View(movie);
+        }
+
+        //Task 2 - Create Action to Respond to Custom Route.
+        public ActionResult ByReleaseDate(int year, int month)
+        {
+            return Content(year + "/" + month);
         }
     }
 }
