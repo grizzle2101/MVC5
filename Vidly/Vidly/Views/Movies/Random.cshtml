@@ -3,5 +3,28 @@
     ViewBag.Title = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--Task 4 - Using View Model Data in View.-->>
-<h2>@Model.Movie.Name</h2>
+<!--Task 3 - Dynamically Naming HTML Properties-->
+@{
+    var className = Model.Customers.Count > 5 ? "popular" : null;
+    //We can bind this value to the HTML class name.
+
+}
+<h2 class="className">@Model.Movie.Name</h2>
+
+<!--Task 2 - If movie hasn't been rented before-->
+@if (Model.Customers.Count == 0)
+{
+    <text>No One has rented this Movie.</text>
+}
+else
+{
+    <!--Task 1 - Display List of Customers-->
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+
+            <li>@customer.Name</li>
+        }
+    </ul>
+}
+
