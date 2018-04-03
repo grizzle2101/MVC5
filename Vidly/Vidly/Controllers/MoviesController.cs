@@ -4,41 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
 
-        //Method 1 - Passing Data as Parameter
+        //Task 3 - Use ViewModel Data in Controller
         public ActionResult Random()
         {
             var movie = new Movie() { Name = "Shrek!", id = 1 };
-            return View(movie);
+            var customers = new List<Customer>
+            {
+                new Customer{Id=1, Name="Bob"},
+                new Customer{Id=2, Name="Burger"}
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+
+            return View(viewModel);
         }
-
-
-        //Method 2 - Passing Data via Data Dictionary.
-        //public ActionResult Random()
-        //{
-        //    var movie = new Movie() { Name = "Shrek!", id = 1 };
-
-        //    ViewData["Movie"] = movie;
-
-        //    return View(movie);
-        //}
-
-        //Method 3 - ViewBag
-        //public ActionResult Random()
-        //{
-        //    var movie = new Movie() { Name = "Shrek!", id = 1 };
-
-        //    ViewBag.Movie = movie;
-
-        //    return View(movie);
-        //}
-
-
 
         [Route("movies/released/{year}/{month}")]
         public ActionResult ByReleaseDate(int year, int month)
