@@ -10,15 +10,36 @@ namespace Vidly.Controllers
     public class MoviesController : Controller
     {
 
+        //Method 1 - Passing Data as Parameter
         public ActionResult Random()
         {
             var movie = new Movie() { Name = "Shrek!", id = 1 };
             return View(movie);
         }
 
-        //Task 2 - Apply Route Attribute
-        //Using Attribute Routes also allows us to Chain Constaints.
-        //[Route("movies/released/{year}/{month:regex(\\d{4}):range(1, 12)}")]
+
+        //Method 2 - Passing Data via Data Dictionary.
+        //public ActionResult Random()
+        //{
+        //    var movie = new Movie() { Name = "Shrek!", id = 1 };
+
+        //    ViewData["Movie"] = movie;
+
+        //    return View(movie);
+        //}
+
+        //Method 3 - ViewBag
+        //public ActionResult Random()
+        //{
+        //    var movie = new Movie() { Name = "Shrek!", id = 1 };
+
+        //    ViewBag.Movie = movie;
+
+        //    return View(movie);
+        //}
+
+
+
         [Route("movies/released/{year}/{month}")]
         public ActionResult ByReleaseDate(int year, int month)
         {
