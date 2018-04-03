@@ -13,26 +13,18 @@ namespace Vidly
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //Task 1 - Create a Custom Route
-            //Must Define Routes from MOST Specfic to least,
-            //As the most Generic one will ALWAYS be applied.
+            //Section 2 - Lecture 5 - Attribute Based Routes.
+            //Task 1 - Enable Attribute based Routing.
+            routes.MapMvcAttributeRoutes();
 
-            //Task 3 - Force Parameter Constraints
-            //We want year to be 4 and month to be 2 digits.
+            //Task
+
             //routes.MapRoute(
-            //               name: "MoviesByReleaseDate",
-            //               url: "movies/released/{year}/{month}",
-            //               defaults: new { controller = "Movies", action = "ByReleaseDate" },
-            //               constraints: new { year = @"\d{4}", month = @"\d{2}"}
-            //               );
-
-            //Task 4 - Force even more specific Constraints. 
-            routes.MapRoute(
-               name: "MoviesByReleaseDate",
-               url: "movies/released/{year}/{month}",
-               defaults: new { controller = "Movies", action = "ByReleaseDate" },
-               constraints: new { year = @"2015|2016", month = @"\d{2}" }
-               );
+            //   name: "MoviesByReleaseDate",
+            //   url: "movies/released/{year}/{month}",
+            //   defaults: new { controller = "Movies", action = "ByReleaseDate" },
+            //   constraints: new { year = @"2015|2016", month = @"\d{2}" }
+            //   );
 
             routes.MapRoute(
                 name: "Default",
