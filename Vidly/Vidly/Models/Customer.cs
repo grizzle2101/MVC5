@@ -5,7 +5,6 @@ using System.Web;
 
 namespace Vidly.Models
 {
-    //Task 1 - Create Customer Object.
     public class Customer
     {
         public int Id { get; set; }

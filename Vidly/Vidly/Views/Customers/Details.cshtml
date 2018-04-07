@@ -1,0 +1,16 @@
+﻿@model Vidly.Models.Customer
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Customer Details:</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Name</td>
+    </tr>
+</table>
