@@ -13,19 +13,6 @@ namespace Vidly
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //Section 2 - Lecture 5 - Attribute Based Routes.
-            //Task 1 - Enable Attribute based Routing.
-            routes.MapMvcAttributeRoutes();
-
-            //Task
-
-            //routes.MapRoute(
-            //   name: "MoviesByReleaseDate",
-            //   url: "movies/released/{year}/{month}",
-            //   defaults: new { controller = "Movies", action = "ByReleaseDate" },
-            //   constraints: new { year = @"2015|2016", month = @"\d{2}" }
-            //   );
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
