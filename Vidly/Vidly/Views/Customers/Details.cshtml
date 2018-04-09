@@ -5,4 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name</h2>
+<ul>
+    <li><h2>Name: @Model.Name</h2></li>
+@if (Model.BirthDate.HasValue)
+{
+    <li><h2>BirthDate: @string.Format("{0:M/d/yyyy}", Model.BirthDate)</h2></li>
+}
+</ul>
