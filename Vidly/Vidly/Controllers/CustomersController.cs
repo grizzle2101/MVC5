@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        //Task 1 - Import DBContext
         protected ApplicationDbContext _context;
 
         public CustomersController()
@@ -20,15 +20,15 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
-        //Task 2 - Use Context to Retrive CustomerList.
+        //Using Eager Loading to Load MembershipTypes
         public ViewResult Index()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
 
-        //Task 3 - Use Context to Retrive Customer Details.
+
         public ActionResult Details(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
