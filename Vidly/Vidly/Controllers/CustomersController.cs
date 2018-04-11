@@ -20,14 +20,12 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
-        //Using Eager Loading to Load MembershipTypes
         public ViewResult Index()
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
-
 
         public ActionResult Details(int id)
         {
@@ -37,6 +35,12 @@ namespace Vidly.Controllers
                 return HttpNotFound();
 
             return View(customer);
+        }
+
+        //Task 1 - Create an Action to Return our Form view.
+        public ActionResult New()
+        {
+            return View();
         }
     }
 }
