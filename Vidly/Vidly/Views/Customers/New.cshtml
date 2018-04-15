@@ -19,12 +19,13 @@
             @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Subscribe to Newsletter
         </label>
     </div>
-    <!--Task 4 - Update View with Dropdown-->>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId)
         @Html.DropDownListFor(m => m.Customer.MembershipTypeId,
-       new SelectList(Model.MembershipTypes, "ID", "Name"),
-       "Select MemberShip Type", new { @class = "form-control" })
+            new SelectList(Model.MembershipTypes, "ID", "Name"),
+            "Select MemberShip Type", new { @class = "form-control" })
     </div>
+    <!--Task 1 - Customer Button-->
+    <button type="submit" class="btn-primary">Submit</button>
 }
 

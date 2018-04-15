@@ -40,15 +40,23 @@ namespace Vidly.Controllers
 
         public ActionResult New()
         {
-            //Task 1 - Retrive Memeberships from DB
             var membershipTypes = _context.MembershipTypes.ToList();
 
-            //Task 3 - Use NewcustomerViewModel
             var viewModel = new NewCustomerViewModel()
             {
                 MembershipTypes = membershipTypes
             };
             return View(viewModel);
+        }
+
+        //Task 2 - Implement Create Controller
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            //Task 3 - Adding Customer to DB
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index","Customers");
         }
     }
 }
