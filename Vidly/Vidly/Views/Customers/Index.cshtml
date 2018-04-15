@@ -33,8 +33,7 @@ else
             @foreach (var customer in Model)
             {
                 <tr>
-                    <!--Task 1 - Switching from Details Action to Edit-->
-                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new {id = customer.Id}, null)</td>
                     <td>@customer.MembershipType.Name</td>
                 </tr>
             }

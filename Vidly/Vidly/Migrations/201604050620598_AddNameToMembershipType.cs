@@ -3,16 +3,16 @@ namespace Vidly.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddingBirthdateToCustomerTable : DbMigration
+    public partial class AddNameToMembershipType : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Customers", "BirthDate", c => c.DateTime());
+            AddColumn("dbo.MembershipTypes", "Name", c => c.String(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Customers", "BirthDate");
+            DropColumn("dbo.MembershipTypes", "Name");
         }
     }
 }

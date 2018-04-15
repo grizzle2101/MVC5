@@ -6,14 +6,14 @@ namespace Vidly.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddingSeedDataForMovies : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
+    public sealed partial class SetNameOfMembershipTypes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddingSeedDataForMovies));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SetNameOfMembershipTypes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804091524296_AddingSeedDataForMovies"; }
+            get { return "201604050621225_SetNameOfMembershipTypes"; }
         }
         
         string IMigrationMetadata.Source
