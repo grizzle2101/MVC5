@@ -18,7 +18,9 @@ namespace Vidly.Models
         [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
+        //Task 2 - Apply new Data Annotation to DOB.
         [Display(Name = "Date of Birth")]
+        [Min18YearIfAMember]
         public DateTime? Birthdate { get; set; }
     }
 }
