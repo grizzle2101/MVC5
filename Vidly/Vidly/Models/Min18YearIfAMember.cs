@@ -6,14 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
-    //Task 1 - Override IsValid from Component Model.
     public class Min18YearIfAMember : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var customer = (Customer)validationContext.ObjectInstance;
 
-            if(customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1)
+            //Task 2 - Use new Domain Model Properties.
+            if(customer.MembershipTypeId == MembershipType.Unknown ||
+                customer.MembershipTypeId == MembershipType.PayAsYouGo)
             {
                 return ValidationResult.Success;
             }

@@ -23,7 +23,6 @@ textarea {
     max-width: 280px;
 }
 
-/* Task 1 - Adding Style for Error Text and TextBoxes */
 .field-validtion-error {
     color: red;
 }
