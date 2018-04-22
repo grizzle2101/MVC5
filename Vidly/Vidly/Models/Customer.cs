@@ -7,7 +7,6 @@ namespace Vidly.Models
     {
         public int Id { get; set; }
         
-        //Task 1 - Use Data Annotations in Customer Entity.
         [Required]
         [StringLength(255)]
         public string Name { get; set; }

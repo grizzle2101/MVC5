@@ -8,7 +8,6 @@
 
 @using (Html.BeginForm("Save", "Customers"))
 {
-    <!--Task 3 - Create validation Placeholders-->
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name)
         @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
@@ -18,9 +17,11 @@
         @Html.LabelFor(m => m.Customer.Birthdate)
         @Html.TextBoxFor(m => m.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
     </div>
+    <!--Task 2 - Adding validation Placeholder for Membership-->
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId)
-        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new {@class = "form-control"})
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
     </div>
     <div class="checkbox">
         <label>
@@ -28,6 +29,6 @@
         </label>
     </div>
     @Html.HiddenFor(m => m.Customer.Id)
-    <button type="submit" class="btn btn-primary">Save</button>    
+    <button type="submit" class="btn btn-primary">Save</button>
 }
 

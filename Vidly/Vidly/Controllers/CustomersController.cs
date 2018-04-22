@@ -34,7 +34,6 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
-            //Task 2 - Model State Validation:
             if(!ModelState.IsValid)
             {
                 var viewModel = new CustomerFormViewModel
