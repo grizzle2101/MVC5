@@ -32,7 +32,9 @@ namespace Vidly.Controllers
             return View("CustomerForm", viewModel);
         }
 
+        //Task 2 - Validate Token
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if(!ModelState.IsValid)
