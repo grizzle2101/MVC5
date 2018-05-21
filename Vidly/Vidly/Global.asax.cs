@@ -6,14 +6,16 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Vidly.App_Start;
 
 namespace Vidly
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        //Task 2 - Configure Gloabal
         protected void Application_Start()
         {
+            //Task 3 - Add AutoMapper Profile on Startup
+            AutoMapper.Mapper.Initialize(c => c.AddProfile<MappingProfile>());
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
