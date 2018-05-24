@@ -20,8 +20,8 @@ namespace Vidly.Controllers.API
         }
 
 
-        //Section 8 - Camel Casing
-        //Task 1 - Change Default Settings for Camel case.
+        //Section 9 - IHttpActionResult
+        //Task 1 - Rework CreateCustomer Method.
 
 
         public IEnumerable<CustomerDTO> GetCustomers()
@@ -31,36 +31,38 @@ namespace Vidly.Controllers.API
         }
 
 
-
-        public CustomerDTO GetCustomer(int id)
+        //Task 2 - Refactor GetCustomer
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            //Mapping Customer & DTO, passing value.
-            return Mapper.Map<Customer, CustomerDTO>(customer);
+            return Ok(Mapper.Map<Customer, CustomerDTO>(customer));
+
         }
 
 
+        //Task 1 - Rework CreateCustomer Method.
+        //Return IHttpActionResult not DTO.
+        //IF ModelState Invalid, Return BadRequest.
+        //Return Created & URI for newly created Customer.
         [HttpPost]
-        public CustomerDTO CreateCustomer(CustomerDTO customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
-            //Mapping Incoming DTO to Customer for Saving
             var customer = Mapper.Map<CustomerDTO, Customer>(customerDto);
 
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            //ID is created OnSave, lets add this value to DTO.
             customerDto.Id = customer.Id;
 
-            //Returning DTO, not Customer Domain Model.
-            return customerDto;
+
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id) , customerDto);
         }
 
 
