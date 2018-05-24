@@ -20,15 +20,9 @@ namespace Vidly.Controllers.API
         }
 
 
-        //Section 6 - Tutorial 6 - Data Transfer Objects:
-        //Task 1 - Create CustomerDTO
-        //Task 2 - Refactor Controller to use DTO.
+        //Section 8 - Camel Casing
+        //Task 1 - Change Default Settings for Camel case.
 
-        //Section 6 - Tutorial 7 - AutoMapper
-        //Task 1 - Install-package automapper
-        //Task 2 - Create Customer & CustomerDTO Mapping.
-        //Task 3 - Add AutoMapper Profile on Startup
-        //Task 4 - Finally, Refactor Controller!
 
         public IEnumerable<CustomerDTO> GetCustomers()
         {
