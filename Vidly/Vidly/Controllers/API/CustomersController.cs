@@ -20,18 +20,21 @@ namespace Vidly.Controllers.API
         }
 
 
-        //Section 9 - IHttpActionResult
-        //Task 1 - Rework CreateCustomer Method.
+        //Before Final Assignment
+        //-Complete Refactoring:
+        //-Mapping
+        //-API Statuses
+        //-Testing
 
 
-        public IEnumerable<CustomerDTO> GetCustomers()
+        //Method 1 - GetCustomers
+        public IHttpActionResult GetCustomers()
         {
-            //Using Select Linq Extension Method
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDTO>);
+            return Ok(_context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDTO>));
         }
 
 
-        //Task 2 - Refactor GetCustomer
+        //Method 2 - Get Customer w ID.
         public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
@@ -43,11 +46,7 @@ namespace Vidly.Controllers.API
 
         }
 
-
-        //Task 1 - Rework CreateCustomer Method.
-        //Return IHttpActionResult not DTO.
-        //IF ModelState Invalid, Return BadRequest.
-        //Return Created & URI for newly created Customer.
+        //Method 3 - Create Customer w Customer DTO.
         [HttpPost]
         public IHttpActionResult CreateCustomer(CustomerDTO customerDto)
         {
@@ -66,6 +65,7 @@ namespace Vidly.Controllers.API
         }
 
 
+        //Method 4 - Update Customer w DTO.
         [HttpPut]
         public void UpdateCustomer(int id, CustomerDTO customerDTO)
         {
@@ -78,19 +78,7 @@ namespace Vidly.Controllers.API
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
 
-            //Second Argument, is CustomerInDB.
-            //We want Entity Framework Change tracker to see the CustomerInDB Values being changed
-            //in order for them to be saved.
             Mapper.Map<CustomerDTO, Customer>(customerDTO, customerInDB);
-
-            
-            //We can now remove all the manual Mappings.
-            //For now we Assign Properties manually, could use AutoMapper in future for mapping of properties.
-            //customerInDB.Name = customerDTO.Name;
-            //customerInDB.Birthdate = customerDTO.Birthdate;
-            //customerInDB.IsSubscribedToNewsletter = customerDTO.IsSubscribedToNewsletter;
-            //customerInDB.MembershipTypeId = customerDTO.MembershipTypeId;
-
             _context.SaveChanges();
         }
 
