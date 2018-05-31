@@ -6,48 +6,85 @@
 }
 
 <h2>Customers</h2>
-@if (!Model.Any())
-{
-    <p>We don't have any customers yet.</p>
-}
-else
-{
 
-    <table id="customers" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Membership Type</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model)
-            {
+<!--Task 4 - Remove all Unneccessary HTML for rendering Customers. -->
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Membership Type</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+
+
+@*@if (!Model.Any())
+    {
+        <p>We don't have any customers yet.</p>
+    }
+    else
+    {
+
+        <table id="customers" class="table table-bordered table-hover">
+            <thead>
                 <tr>
-                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
-                    <td>@customer.MembershipType.Name</td>
-                    <td>
-                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
-                    </td>
+                    <th>Customer</th>
+                    <th>Membership Type</th>
+                    <th>Delete</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                            <td>@customer.MembershipType.Name</td>
+                            <td>
+                                <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+        </table>
+    }*@
 
-<!--Section 8 - Tutorial 5 -  DataTables -->
-<!--Task 1 - Install-Package datatables -->
-<!--Task 2 - Consolidate JQuery Packages in  Layout.cshtml(Shared Template)-->
-<!--Task 3 - Consolidate Bundles in Bundle.config -->
-<!--Task 4 - Add DataTables stye config in Bundle.config -->
-<!--Task 5 - Use DataTable -->
+<!--Section 8 - Tutorial 6 -  DataTables with AJAX Source -->
+<!--Task 1 - Configure DataTable to use API -->
+<!--Task 2 - Map Columns to Data -->
+<!--Task 3 - Remove Data from Index Action/Method -->
+<!--Task 4 - Clean Up Unused HTML -->
+
+
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            //Task 5 - Use DataTable
-            $("#customers").DataTable();
+            //Task 1 - Configure DataTable to use API.
+            $("#customers").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: ""
+                },
+                //Task 2 - Map Columns to Data.
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {//Render as HyperLink
+                            return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
 
             $("#customers").on("click", ".js-delete", function () {
                 var button = $(this);

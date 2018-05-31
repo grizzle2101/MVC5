@@ -8,7 +8,6 @@ namespace Vidly
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //Task 3 - Consolidate All Bundles
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                          "~/Scripts/bootstrap.js",
