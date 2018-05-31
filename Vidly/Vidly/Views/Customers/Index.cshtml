@@ -12,8 +12,8 @@
 }
 else
 {
-    <!--Section 7 - Calling API using JQuery-->
-    <!--Task 1 - Rework HTML, Add Delete Button & ID to use for Selection/Deletion-->
+    <!--Section 8 - Bootbox Plugin-->
+
     <table id="customers" class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -37,27 +37,27 @@ else
     </table>
 }
 
-<!--Task 2 - Create OnClick Event-->
+
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            //Step 1 - OnClick Event
             $("#customers .js-delete").on("click", function () {
-                var button = $(this); //Set Clicked Button
+                var button = $(this); 
 
-                //Step 2 - Confirmation PopUp
-                if (confirm("Are you sure you want to delete this customer?")) {
-                    //Step 3 - API Call
-                    $.ajax({
-                        url: "/api/customers/" + button.attr("data-customer-id"), //Button ID = URI
-                        method: "DELETE",
-                        success: function () {
-                            //Step 4 - Remove Entire Row w Button ID.
-                            button.parents("tr").remove();
-                        }
-                    });
-                }
+                //Task 3 - Implement new BootBox Confirmation PopUp
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                    if (result) {//Not Null of Undefined
+                        $.ajax({
+                            url: "/api/customers/" + button.attr("data-customer-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        });
+
+                    }
+                });
             });
         });
     </script>
