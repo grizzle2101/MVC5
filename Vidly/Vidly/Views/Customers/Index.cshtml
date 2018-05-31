@@ -36,12 +36,19 @@ else
     </table>
 }
 
-<!--Section 8 - Tutorial 4 -  Optimizing JQuery -->
+<!--Section 8 - Tutorial 5 -  DataTables -->
+<!--Task 1 - Install-Package datatables -->
+<!--Task 2 - Consolidate JQuery Packages in  Layout.cshtml(Shared Template)-->
+<!--Task 3 - Consolidate Bundles in Bundle.config -->
+<!--Task 4 - Add DataTables stye config in Bundle.config -->
+<!--Task 5 - Use DataTable -->
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            //Task 1 - Rework Event Handler.
+            //Task 5 - Use DataTable
+            $("#customers").DataTable();
+
             $("#customers").on("click", ".js-delete", function () {
                 var button = $(this);
 
