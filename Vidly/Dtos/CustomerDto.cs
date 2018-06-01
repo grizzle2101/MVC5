@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Dtos
 {
-    //Task 3 - Add MembershipDTO to CustomerDTO
     public class CustomerDto
     {
         public int Id { get; set; }

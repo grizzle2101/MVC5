@@ -9,7 +9,6 @@ namespace Vidly.App_Start
         public MappingProfile()
         {
             // Domain to Dto
-            //Task 4 - Add Membership Mappings
             Mapper.CreateMap<Customer, CustomerDto>();
             Mapper.CreateMap<Movie, MovieDto>();
             Mapper.CreateMap<MembershipType, MembershipTypeDto>();

@@ -17,17 +17,10 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        //Turorial 7 -  Returning Hierarchical Data
-        //Task 1 - Use Eager Loading to Load Related Entities.
-        //Task 2 - Create MembershipDTO
-        //Task 3 - Add MembershipDTO to CustomerDTO
-        //Task 4 - Add Membership Mappings
-        //Task 5 - Use MembershipType name in new Column.
 
         // GET /api/customers
         public IHttpActionResult GetCustomers()
         {
-            //Task 1 - Use Eager Loading to Load Related Entities.
             var customerDtos = _context.Customers
                 .Include(c => c.MembershipType)
                 .ToList()

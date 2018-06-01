@@ -28,10 +28,14 @@
     <tbody></tbody>
 </table>
 
+<!--Tutorial 8 - Removing DataTable Records-->
+<!--Task 1 - Store DataTable as Result as Variable.-->
+<!--Task 2 - Use Table to remove & Redraw-->
 @section scripts
 {
     <script>
         $(document).ready(function () {
+            //Task 1 - Store DataTable as Result as Variable
             var table = $("#customers").DataTable({
                 ajax: {
                     url: "/api/customers",
@@ -40,17 +44,16 @@
                 columns: [
                     {
                         data: "name",
-                        render: function(data, type, customer) {
+                        render: function (data, type, customer) {
                             return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
                         }
                     },
-                    //Task 5 - Use MembershipType name in new Column.
                     {
                         data: "membershipType.name"
                     },
                     {
                         data: "id",
-                        render: function(data) {
+                        render: function (data) {
                             return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
                         }
                     }
@@ -67,6 +70,7 @@
                             url: "/api/customers/" + button.attr("data-customer-id"),
                             method: "DELETE",
                             success: function () {
+                                //Task 2 - Use Table to remove & Redraw
                                 table.row(button.parents("tr")).remove().draw();
                             }
                         });
