@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Dtos
 {
+    //Adding GenreDTO to MovieDTO.
     public class MovieDto
     {
         public int Id { get; set; }
@@ -13,6 +14,8 @@ namespace Vidly.Dtos
 
         [Required]
         public byte GenreId { get; set; }
+
+        public GenreDTO Genre { get; set; }
 
         public DateTime DateAdded { get; set; }
 

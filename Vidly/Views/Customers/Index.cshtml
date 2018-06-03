@@ -28,14 +28,11 @@
     <tbody></tbody>
 </table>
 
-<!--Tutorial 8 - Removing DataTable Records-->
-<!--Task 1 - Store DataTable as Result as Variable.-->
-<!--Task 2 - Use Table to remove & Redraw-->
+
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            //Task 1 - Store DataTable as Result as Variable
             var table = $("#customers").DataTable({
                 ajax: {
                     url: "/api/customers",
@@ -70,7 +67,6 @@
                             url: "/api/customers/" + button.attr("data-customer-id"),
                             method: "DELETE",
                             success: function () {
-                                //Task 2 - Use Table to remove & Redraw
                                 table.row(button.parents("tr")).remove().draw();
                             }
                         });

@@ -17,9 +17,20 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
+        //Section 7 - Final Excercise:
+        //Build up API & Consume using DataTable
+        //Task 1 - Use DataTable to Load Data
+        //Task 2 - Refactor API to send Genre.
+        //Task 3 - Implment Deletion through AJAX API Call.
+
+
+        //Task 2 - Refactor API to send Genre.
+        //Create Genre DTO
+        //Create GenreDTO Mappings
+        //Add GenreDTO to MovieDTO.
         public IEnumerable<MovieDto> GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return _context.Movies.Include("Genre").ToList().Select(Mapper.Map<Movie, MovieDto>);
         }
 
         public IHttpActionResult GetMovie(int id)
@@ -75,7 +86,7 @@ namespace Vidly.Controllers.Api
             _context.Movies.Remove(movieInDb);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok("Deleted");
         }
     }
 }
