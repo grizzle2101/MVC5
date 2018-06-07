@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Vidly.Controllers
 {
@@ -142,6 +143,14 @@ namespace Vidly.Controllers
             return View();
         }
 
+
+        //Section 8 - Tutorial 7 - Seeding Users and Roles
+        //Task 1 - Create Normal Account guest@vidly.com
+        //Task 2 - Create Temp Code to Assign Users to New Role:
+        //Task 3 - Create Admin Account admin@vidly.com, then comment out old code.
+        //Task 4 - Create Seed Data for Users, Roles & Mapping
+
+
         //
         // POST: /Account/Register
         [HttpPost]
@@ -155,6 +164,15 @@ namespace Vidly.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Task 2 - Create Temp Code to Assign Users to New Role:
+                    //Instansiate RoleStore & Manager.
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                    //Create new Role & Add User
+                    await roleManager.CreateAsync(new IdentityRole("CanManageMovies"));
+                    await UserManager.AddToRoleAsync(user.Id, "CanManageMovies");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
