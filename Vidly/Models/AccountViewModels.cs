@@ -64,6 +64,11 @@ namespace Vidly.Models
 
     public class RegisterViewModel
     {
+        //Task 3 - Add Driving License property to Register viewmodel.
+        [Required]
+        [Display(Name = "Driving License")]
+        public string DrivingLicense { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

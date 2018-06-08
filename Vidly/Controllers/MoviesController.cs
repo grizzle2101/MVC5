@@ -8,13 +8,6 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
-    //Section 8 - Tutorial 8 - Working with Roles
-    //Task 1 - Copy Index as ReadOnlyList
-    //Task 2 - Remove admin Only HTML
-    //Task 3 - Add Logic - Redirect Users based on Role
-    //Task 4 - Secure other Methods
-    //Task 5 - Remove Magic Strings
-
     public class MoviesController : Controller
     {
         private ApplicationDbContext _context;
@@ -29,7 +22,6 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
-        //Task 3 - Add Logic - Redirect Users based on Role 
         public ViewResult Index()
         {
             if(User.IsInRole(RoleName.CanManageMovies))
@@ -38,8 +30,7 @@ namespace Vidly.Controllers
             return View("ReadOnlyList");
         }
 
-        //Task 4 - Secure other Methods
-        //Task 5 - Remove Magic Strings
+        //Remove Magic Strings
         [Authorize(Roles = RoleName.CanManageMovies)]
         public ViewResult New()
         {

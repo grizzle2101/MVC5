@@ -144,13 +144,15 @@ namespace Vidly.Controllers
         }
 
 
-        //Section 8 - Tutorial 7 - Seeding Users and Roles
-        //Task 1 - Create Normal Account guest@vidly.com
-        //Task 2 - Create Temp Code to Assign Users to New Role:
-        //Task 3 - Create Admin Account admin@vidly.com, then comment out old code.
-        //Task 4 - Create Seed Data for Users, Roles & Mapping
+        //Section 8 - Tutorial 9 - Adding Profile Data
+        //Task 1 - Update ApplicationUser Model, add migration & update.
+        //Task 2 - Update Register View with Driving License textbox.
+        //Task 3 - Add Driving License property to Register viewmodel.
+        //Task 4 - Update Register Action
 
 
+
+        //Task 4 - Update Registed Action
         //
         // POST: /Account/Register
         [HttpPost]
@@ -160,18 +162,24 @@ namespace Vidly.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //bind Driving License data to Application User.
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DrivingLicense = model.DrivingLicense
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //Task 2 - Create Temp Code to Assign Users to New Role:
-                    //Instansiate RoleStore & Manager.
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    ////Temp Code to Assign Users to New CanManageMovies(Admin) Role:
+                    ////Instansiate RoleStore & Manager.
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                    //Create new Role & Add User
-                    await roleManager.CreateAsync(new IdentityRole("CanManageMovies"));
-                    await UserManager.AddToRoleAsync(user.Id, "CanManageMovies");
+                    ////Create new Role & Add User
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageMovies"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageMovies");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
