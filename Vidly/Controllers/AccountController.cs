@@ -144,16 +144,17 @@ namespace Vidly.Controllers
         }
 
 
-        //Section 8 - Tutorial 9 - Adding Profile Data
-        //Task 1 - Update ApplicationUser Model, add migration & update.
-        //Task 2 - Update Register View with Driving License textbox.
-        //Task 3 - Add Driving License property to Register viewmodel.
-        //Task 4 - Update Register Action
+        //Section 8 - Tutorial 11 - Social Logins
+        //Task 1 - Enable SSL on Vidly Solution
+        //Task 2 - Set Project URL as SSL URL.
+        //Task 3 - Add Dummy Certificate to Trusted Hosts(if neccessary)
+        //Task 4 - Disable regular HTTP Access.
+        //Task 5 - Register with developers.facebook.com or google
+        //Task 6 - Add new API credentials to Startup.Auth.cs
+        //Task 7 - Update HTML in ExternalLoginConfirmation
+        //Task 8 - Update ExternalLoginConfirmationViewModel
+        //Task 9 - Update Action w new Info.
 
-
-
-        //Task 4 - Update Registed Action
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -373,6 +374,7 @@ namespace Vidly.Controllers
             }
         }
 
+        //Task 9 - Update Action w new Info.
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
@@ -393,7 +395,12 @@ namespace Vidly.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                { UserName = model.Email,
+                    Email = model.Email,
+                    DrivingLicense = model.DrivingLicense
+                };
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

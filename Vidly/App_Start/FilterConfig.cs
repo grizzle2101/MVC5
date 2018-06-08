@@ -8,9 +8,11 @@ namespace Vidly
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-
-            //Task 3 - Apply Authoize @ Global Level.
+            //Apply Authoize @ Global Level.
             filters.Add(new AuthorizeAttribute());
+
+            //Task 4 - Disable regular HTTP Access.
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }

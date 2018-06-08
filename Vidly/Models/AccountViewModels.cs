@@ -3,8 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
+    //Task 8 - Update ExternalLoginConfirmationViewModel
     public class ExternalLoginConfirmationViewModel
     {
+        //Add Driving License property to Register viewmodel.
+        [Required]
+        [Display(Name = "Driving License")]
+        public string DrivingLicense { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -64,7 +70,7 @@ namespace Vidly.Models
 
     public class RegisterViewModel
     {
-        //Task 3 - Add Driving License property to Register viewmodel.
+        //Add Driving License property to Register viewmodel.
         [Required]
         [Display(Name = "Driving License")]
         public string DrivingLicense { get; set; }

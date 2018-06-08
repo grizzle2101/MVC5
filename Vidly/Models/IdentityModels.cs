@@ -10,8 +10,7 @@ namespace Vidly.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        //Task 1 - Add DrivingLicense property
-        //add-migration AddDrivingLicenseToApplicationUser then update-database
+        //dd DrivingLicense property
         [Required]
         [StringLength(255)]
         public string DrivingLicense { get; set; }
