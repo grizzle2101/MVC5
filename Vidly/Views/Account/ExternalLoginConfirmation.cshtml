@@ -26,11 +26,19 @@
         </div>
     </div>
 
-    <!--Task 7 - Update HTML in ExternalLoginConfirmation-->
+    <!--Add Driving License-->
     <div class="form-group">
         @Html.LabelFor(m => m.DrivingLicense, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.DrivingLicense, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!--Add Phone Number-->
+    <div class="form-group">
+        @Html.LabelFor(m => m.MobileNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control" })
         </div>
     </div>
 

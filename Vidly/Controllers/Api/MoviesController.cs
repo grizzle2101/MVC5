@@ -17,22 +17,13 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        //Section 7 - Final Excercise:
-        //Build up API & Consume using DataTable
-        //Task 1 - Use DataTable to Load Data
-        //Task 2 - Refactor API to send Genre.
-        //Task 3 - Implment Deletion through AJAX API Call.
-
-
-        //Task 2 - Refactor API to send Genre.
-        //Create Genre DTO
-        //Create GenreDTO Mappings
-        //Add GenreDTO to MovieDTO.
+        //Get MovieList
         public IEnumerable<MovieDto> GetMovies()
         {
             return _context.Movies.Include("Genre").ToList().Select(Mapper.Map<Movie, MovieDto>);
         }
 
+        //Get Single Movie API Query
         public IHttpActionResult GetMovie(int id)
         {
             var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
@@ -43,7 +34,10 @@ namespace Vidly.Controllers.Api
             return Ok(Mapper.Map<Movie, MovieDto>(movie));
         }
 
+        //Secure
+        //Restrict Creation
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -57,7 +51,9 @@ namespace Vidly.Controllers.Api
             return Created(new Uri(Request.RequestUri + "/" + movie.Id), movieDto);
         }
 
+        //Restrict Update
         [HttpPut]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -75,7 +71,9 @@ namespace Vidly.Controllers.Api
             return Ok();
         }
 
+        //Restrict Delete
         [HttpDelete]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(c => c.Id == id);

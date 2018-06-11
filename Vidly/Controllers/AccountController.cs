@@ -144,16 +144,13 @@ namespace Vidly.Controllers
         }
 
 
-        //Section 8 - Tutorial 11 - Social Logins
-        //Task 1 - Enable SSL on Vidly Solution
-        //Task 2 - Set Project URL as SSL URL.
-        //Task 3 - Add Dummy Certificate to Trusted Hosts(if neccessary)
-        //Task 4 - Disable regular HTTP Access.
-        //Task 5 - Register with developers.facebook.com or google
-        //Task 6 - Add new API credentials to Startup.Auth.cs
-        //Task 7 - Update HTML in ExternalLoginConfirmation
-        //Task 8 - Update ExternalLoginConfirmationViewModel
-        //Task 9 - Update Action w new Info.
+        //Section 8 - Final Excercise:
+        //Task 1 - Add Mobile Number to Registration Pages (External & Normal) - Done
+        //Task 2 - Secure Movies(we only secured New Movie)
+        //-Secure WebAPI - Create, Update & Delete - Done
+        //-Secure Navigation - Secure MovieList, ReadOnlyPage - Done
+        //Task 3 - Cleanup AccountViewModel, too many damn classes.
+        //Task 4 - Could add Mapping in Movies and places where it dosen't exist? Instead of manually mapping.
 
         // POST: /Account/Register
         [HttpPost]
@@ -168,7 +165,8 @@ namespace Vidly.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    DrivingLicense = model.DrivingLicense
+                    DrivingLicense = model.DrivingLicense,
+                    MobileNumber = model.MobileNumber
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -398,7 +396,8 @@ namespace Vidly.Controllers
                 var user = new ApplicationUser
                 { UserName = model.Email,
                     Email = model.Email,
-                    DrivingLicense = model.DrivingLicense
+                    DrivingLicense = model.DrivingLicense,
+                    MobileNumber = model.MobileNumber
                 };
 
                 var result = await UserManager.CreateAsync(user);
