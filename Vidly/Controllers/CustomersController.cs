@@ -1,5 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -63,8 +65,16 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Customers");
         }
 
+        //Section 9 - Tutorial 6 - Data Caching
+        //Task 1 - Add Reference to System.Runtime.Caching & Use in Controller.
+        //Task 2 - Add Logic in Index to Check Cache & Load from DB.
+        //Task 3 - Use Contstant String instead of Magic String.
         public ViewResult Index()
         {
+            if (MemoryCache.Default[CachedTableName.GenreTable] == null)
+                MemoryCache.Default[CachedTableName.GenreTable] = _context.Genres.ToList();
+
+            var genres = MemoryCache.Default[CachedTableName.GenreTable] as IEnumerable<Genre>;
             return View();
         }
 
