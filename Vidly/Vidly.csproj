@@ -266,6 +266,10 @@
     <Compile Include="Migrations\201806141659048_AddRentalTable.Designer.cs">
       <DependentUpon>201806141659048_AddRentalTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806141739100_AddingNumberAvailableToMovies.cs" />
+    <Compile Include="Migrations\201806141739100_AddingNumberAvailableToMovies.Designer.cs">
+      <DependentUpon>201806141739100_AddingNumberAvailableToMovies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CachedTableName.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -586,6 +590,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806141659048_AddRentalTable.resx">
       <DependentUpon>201806141659048_AddRentalTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806141739100_AddingNumberAvailableToMovies.resx">
+      <DependentUpon>201806141739100_AddingNumberAvailableToMovies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

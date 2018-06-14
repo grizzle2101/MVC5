@@ -26,5 +26,8 @@ namespace Vidly.Models
         [Display(Name = "Number in Stock")]
         [Range(1, 20)]
         public byte NumberInStock { get; set; }
+
+        //Task 7 - Add NoOfAvailable to Movies for Tracking.
+        public byte NumberAvailable { get; set; }
     }
 }
