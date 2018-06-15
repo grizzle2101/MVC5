@@ -6,7 +6,7 @@
 <!--Task 13 - Create View-->
 <h2>New Rental Form</h2>
 
-<form>
+<form id="newRental">
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
@@ -34,32 +34,30 @@
 @section scripts
 {
     <script>
-        $(document).ready(function() {
-            var vm =
-            {
+        $(document).ready(function () {
+
+            var vm = {
                 movieIds: []
             };
+
             var customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '../api/customers?query=%QUERY',
+                    url: '/api/customers?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
 
             $('#customer').typeahead({
-                    minLength: 3,
-                    highlight: true
-                },
-                {
+                minLength: 3,
+                highlight: true
+            }, {
                     name: 'customers',
                     display: 'name',
                     source: customers
-                }).on("typeahead:select",
-                function(e, customer) {
-                    vm.customerId = customer.Id;
-
+                }).on("typeahead:select", function (e, customer) {
+                    vm.customerId = customer.id;
                 });
 
             //Task 18 - Excercise - AutoComplete for Movies
@@ -67,25 +65,41 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '../api/movies?query=%QUERY',
+                    url: '/api/movies?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
 
             $('#movie').typeahead({
-                    minLength: 3,
-                    highlight: true
-                },
-                {
+                minLength: 3,
+                highlight: true
+            }, {
                     name: 'movies',
                     display: 'name',
                     source: movies
-                    //Task 20 - Adding Item to List
                 }).on("typeahead:select", function (e, movie) {
-                console.log(movie.name);
-                $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
-            });
-        })
+                    //Task 20 - Add Selected Movie to List.
+                    $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+                    $("#movie").typeahead("val", "");
 
+                    vm.movieIds.push(movie.id);
+                });
+
+            //Task 25 - Post form to Rentals Controller.
+            $("#newRental").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "../api/rentals",
+                    method: "post",
+                    data: vm
+                })
+                    .done(function () {
+                        console.log("done");
+                    })
+                    .fail(function () {
+                    });
+            });
+        });
     </script>
 }

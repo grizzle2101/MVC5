@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Http;
 using Vidly.Dtos;
 using Vidly.Models;
+using String = System.String;
 
 namespace Vidly.Controllers.Api
 {
@@ -17,10 +18,20 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        //Get MovieList
-        public IEnumerable<MovieDto> GetMovies()
+        //Task 24 - Only Return Matching & Available Results
+        //Filter by Query & Availability
+        public IEnumerable<MovieDto> GetMovies(string query = null)
         {
-            return _context.Movies.Include("Genre").ToList().Select(Mapper.Map<Movie, MovieDto>);
+            //Retrive Movies
+            var moviesQuery = _context.Movies
+                .Include("Genre")
+                .Where(m => m.NumberAvailable > 0);
+
+            ////Filter by Param
+            if (!String.IsNullOrWhiteSpace(query))
+                moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
+
+            return moviesQuery.ToList().Select(Mapper.Map<Movie, MovieDto>);
         }
 
         //Get Single Movie API Query
