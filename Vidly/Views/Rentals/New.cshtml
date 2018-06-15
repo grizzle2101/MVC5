@@ -16,14 +16,21 @@
         <label>Movie</label>
         <input id="movie" type="text" value="" class="form-control" />
     </div>
+    <!--Task 19 - Add Selected Movies to List-->
+    <ul id="movies" class="list-group"></ul>
+
     <button class="btn btn-primary">Submit</button>
 </form>
 <!--Task 17 - Add JavaScript for TypeAhead Functionality-->
+
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            var vm = {};
+        $(document).ready(function() {
+            var vm =
+            {
+                movieIds: []
+            };
             var customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -34,13 +41,15 @@
             });
 
             $('#customer').typeahead({
-                minLength: 3,
-                highlight: true
-            }, {
-                name: 'customers',
-                display: 'name',
+                    minLength: 3,
+                    highlight: true
+                },
+                {
+                    name: 'customers',
+                    display: 'name',
                     source: customers
-                }).on("typeahead:select", function (e, customer) {
+                }).on("typeahead:select",
+                function(e, customer) {
                     vm.customerId = customer.Id;
 
                 });
@@ -56,13 +65,18 @@
             });
 
             $('#movie').typeahead({
-                minLength: 3,
-                highlight: true
-            }, {
+                    minLength: 3,
+                    highlight: true
+                },
+                {
                     name: 'movies',
                     display: 'name',
                     source: movies
-                });
+                    //Task 20 - Adding Item to List
+                }).on("typeahead:select", function (e, movie) {
+                console.log(movie.name);
+                $("#movies").append("<li>" + movie.name + "</li>");
+            });
         })
 
     </script>
