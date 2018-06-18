@@ -18,8 +18,9 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        //Task 24 - Only Return Matching & Available Results
-        //Filter by Query & Availability
+        //Tutorial 11 - Filtering the Records:
+        //Exercise - Implment this for Movies.
+
         public IEnumerable<MovieDto> GetMovies(string query = null)
         {
             //Retrive Movies
@@ -27,7 +28,7 @@ namespace Vidly.Controllers.Api
                 .Include("Genre")
                 .Where(m => m.NumberAvailable > 0);
 
-            ////Filter by Param
+            //Filter by Param
             if (!String.IsNullOrWhiteSpace(query))
                 moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
 

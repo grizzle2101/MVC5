@@ -1,38 +1,37 @@
-﻿
+﻿@model dynamic
+
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "New Rental Form";
 }
 
-<!--Task 13 - Create View-->
 <h2>New Rental Form</h2>
 
 <form id="newRental">
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" type="text" value="" class="form-control" />
+            <input id="customer" name="customer" data-rule-validCustomer="true" required type="text" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label>Movie</label>
         <div class="tt-container">
-            <input id="movie" type="text" value="" class="form-control" />
+            <input id="movie" name="movie" data-rule-atLeastOneMovie="true" type="text" value="" class="form-control" />
         </div>
     </div>
-    <!--Task 19 - Add Selected Movies to List-->
-    <!--Task 22 - Add BootStrap Grid on ListItems-->
+
     <div class="row">
         <div class="col-md-4 col-sm-4">
             <ul id="movies" class="list-group"></ul>
         </div>
     </div>
+
     <button class="btn btn-primary">Submit</button>
 </form>
-<!--Task 17 - Add JavaScript for TypeAhead Functionality-->
-<!--Task 21 - Add StyleSheet to TidyUp form-->
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
 
@@ -40,6 +39,13 @@
                 movieIds: []
             };
 
+            //Tutorial 8 - Add AutoCompetion w TypeAhead.
+            //Task 1 - Install Package typeahead & add to BundleConfig.
+            //Task 2 - Create typeahead.css style.
+            //Task 3 - Customize Sample JavaScript.
+            //Task 4 - OnSelection Add to ViewModel.
+
+            //Excercise - Complete AutoComplete for Movies.
             var customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -60,7 +66,6 @@
                     vm.customerId = customer.id;
                 });
 
-            //Task 18 - Excercise - AutoComplete for Movies
             var movies = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -70,6 +75,15 @@
                 }
             });
 
+            //Tutorial 9 - Updating the DOM:
+            //Task 1 - Create PlaceHolder for Selected Movies.
+            //Task 2 - Add Selected Movies to DOM & ToList.
+
+            //Tutorial 10 - Improving the Look & Feel:
+            //Task 1 - Place TextBoxes in tt-container
+            //Task 2 - Update StyleSheet for tt-container
+            //Task 3 - Change Selected Movies style as md-4
+
             $('#movie').typeahead({
                 minLength: 3,
                 highlight: true
@@ -78,27 +92,63 @@
                     display: 'name',
                     source: movies
                 }).on("typeahead:select", function (e, movie) {
-                    //Task 20 - Add Selected Movie to List.
                     $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+
                     $("#movie").typeahead("val", "");
 
                     vm.movieIds.push(movie.id);
                 });
 
-            //Task 25 - Post form to Rentals Controller.
-            $("#newRental").submit(function (e) {
-                e.preventDefault();
 
-                $.ajax({
-                    url: "../api/rentals",
-                    method: "post",
-                    data: vm
-                })
-                    .done(function () {
-                        console.log("done");
+            //Tutorial 14 - Client Side Validation:
+            //Task 1 - Add Scripts.Render JQueryVal
+            //Task 2 - Place Form Submission Event inside Validation.
+            //Task 3 - Decorate Customers TextBox with Required & Custom Data Rule.
+            //Task 4 - Implment Validation rule in JavaScript
+            //Task 5 - Apply Styling for Validation Errors
+            $.validator.addMethod("validCustomer", function () {
+                return vm.customerId && vm.customerId !== 0;
+            }, "Please select a valid customer.");
+
+            $.validator.addMethod("atLeastOneMovie", function () {
+                return vm.movieIds.length > 0;
+            }, "Please select at least one movie.");
+
+            
+            var validator = $("#newRental").validate({
+                //Tutorial 12 - Submitting the Form:
+                //Task 1 - Configure Post Method.
+                //Task 2 - Add Event for Success.
+                //Task 3 - Add Event for Fail.
+                submitHandler: function () {
+                    $.ajax({
+                        url: "/api/rentals",
+                        method: "post",
+                        data: vm
                     })
-                    .fail(function () {
-                    });
+                    //Tutorial 13 - Adding Toast Notifications.
+                    //Task 1 - Import-package toastr
+                    //Task 2- Add Toaster to BundleConfig
+                    //Task 3 - Implment Toastr Success & Fail messages.
+                        .done(function () {
+                            toastr.success("Rentals successfully recorded.");
+
+                            //Tutorial 15 - Code Review
+                            //Task 1 - Clear Form & Reset ViewModel.
+                            $("#customer").typeahead("val", "");
+                            $("#movie").typeahead("val", "");
+                            $("#movies").empty();
+
+                            vm = { movieIds: [] };
+
+                            validator.resetForm();
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happened.");
+                        });
+
+                    return false;
+                }
             });
         });
     </script>

@@ -18,7 +18,10 @@ namespace Vidly.Controllers.Api
         }
 
 
-        //Task 23 - Only Return Matching Results
+        //Tutorial 11 - Filtering the Records:
+        //Task 1 - Rework GetCustomers Action - Filter Movies by Query
+        //Exercise - Implment this for Movies.
+
         // GET /api/customers
         public IHttpActionResult GetCustomers(string query = null)
         {
