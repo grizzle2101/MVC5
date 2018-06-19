@@ -16,27 +16,19 @@ namespace Vidly.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        //Task 3 - Disable all forms of Caching on HomePage
         [OutputCache(Duration = 0, Location = OutputCacheLocation.Server, NoStore = true)]
         public ActionResult Index() => View();
 
         public ActionResult About()
         {
+            //Sample Exception
+            throw new Exception();
+
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        //Task 2 - Apply Caching on HomePage
-        //[OutputCache(Duration = 50, Location = OutputCacheLocation.Server, VaryByParam = "*")]
-        //public ActionResult Index() => View();
-
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
 
         public ActionResult Contact()
         {
